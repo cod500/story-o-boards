@@ -1,0 +1,206 @@
+body {
+  background-color: #eaf2e3;
+  /* font-family: "Roboto", sans-serif; */
+  font-family: "Englebert", sans-serif;
+}
+
+.button {
+  float: right;
+  margin: 0px 50px 0 0;
+  background-color: #e75448;
+  padding: 10px 15px;
+  color: white;
+  font-family: helvetica, arial, sans-serif;
+  border-radius: 4px;
+  font-weight: 500;
+}
+
+a.button {
+  text-decoration: none;
+}
+
+.invisible {
+  visibility: hidden;
+}
+
+/* BOARD */
+#board {
+  padding: 100px 30px 30px;
+  margin-top: 40px;
+  overflow-y: visible;
+}
+
+/* NOTE */
+
+.note {
+  float: left;
+  display: block;
+  position: relative;
+  padding: 1em;
+  width: 300px;
+  min-height: 300px;
+  margin: 0 30px 30px 0;
+  background: linear-gradient(top, rgba(0, 0, 0, 0.05), rgba(0, 0, 0, 0.25));
+  background-color: #b9dcf4;
+  box-shadow: 5px 5px 10px -2px rgba(33, 33, 33, 0.3);
+  transform: rotate(2deg);
+  transform: skew(-1deg, 1deg);
+  transition: transform 0.15s;
+  z-index: 1;
+  text-align: center;
+  border-radius: 5px;
+}
+.note:hover {
+  cursor: grab;
+}
+
+.note:before {
+  display: block;
+  content: "";
+  background: rgba(227, 200, 114, 0.4);
+  width: 130px;
+  height: 28px;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+  border-radius: 6px/18px 0;
+  position: absolute;
+  top: -15px;
+  left: 95px;
+  -webkit-transform: rotate(-2deg);
+  -moz-transform: rotate(-2deg);
+  -o-transform: rotate(-2deg);
+  -ms-transform: rotate(-2deg);
+  transform: rotate(-2deg);
+}
+
+.note img {
+  width: 250px;
+  height: 250px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+textarea {
+  color: #777775;
+  background-color: transparent;
+  border: none;
+  resize: vertical;
+  /* font-family: "Roboto", sans-serif; */
+  width: 100%;
+  height: 100%;
+  padding: 5px;
+  font-size: 12pt;
+  font-weight: 300;
+  margin-top: 10px;
+}
+
+textarea:focus {
+  outline: none;
+  border: none;
+  box-shadow: 0 0 5px 1px rgba(0, 0, 0, 0.2) inset;
+}
+
+.add-note {
+  position: absolute;
+  display: flex;
+  background-color: #ffbda2;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  bottom: 1px;
+  right: 1px;
+  cursor: pointer;
+}
+
+.fa-image {
+  margin-bottom: 10px;
+  width: 250px;
+  height: 250px;
+  color: #b5b5b5;
+  background-color: #cecece;
+  border-radius: 15px;
+  box-shadow: 0 10px 0 #b5b5b5;
+  padding: 25px;
+  position: relative;
+}
+.fa-image:hover {
+  cursor: pointer;
+}
+.fa-image:active {
+  box-shadow: 0 0 0;
+  top: 10px;
+}
+
+.avatar-upload {
+  position: relative;
+  max-width: 205px;
+  margin-left: 18px;
+}
+.avatar-upload .avatar-edit {
+  position: absolute;
+  z-index: 1;
+  position: absolute;
+  right: -75px;
+  z-index: 1;
+  top: -12px;
+}
+.avatar-upload .avatar-edit input {
+  /* display: none; */
+}
+.avatar-upload .avatar-edit input + label {
+  display: inline-block;
+  width: 34px;
+  height: 34px;
+  margin-bottom: 0;
+  border-radius: 100%;
+  background: #fff;
+  border: 1px solid transparent;
+  box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.12);
+  cursor: pointer;
+  font-weight: normal;
+  transition: all 0.2s ease-in-out;
+}
+.avatar-upload .avatar-edit input + label:hover {
+  background: #f1f1f1;
+  border-color: #d6d6d6;
+}
+.avatar-upload .avatar-edit input + label:after {
+  content: "\f040";
+  font-family: "FontAwesome";
+  color: #757575;
+  position: absolute;
+  top: 10px;
+  left: 0;
+  right: 0;
+  text-align: center;
+  margin: auto;
+}
+.avatar-upload .avatar-preview {
+  width: 250px;
+  height: 250px;
+  position: relative;
+  border-radius: 15px;
+  border: 6px solid #f8f8f8;
+  box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.1);
+}
+.avatar-upload .avatar-preview > div {
+  width: 100%;
+  height: 100%;
+  border-radius: 5px;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+#input-url {
+  margin-bottom: 5px;
+  margin-top: 5px;
+  border: 1px solid rgba(211, 211, 211, 0.8);
+  padding: 8px;
+  width: 250px;
+  border-radius: 15px;
+  text-align: center;
+  font-family: "Englebert", sans-serif;
+}
