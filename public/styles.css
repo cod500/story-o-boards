@@ -203,3 +203,8 @@ textarea:focus {
   border-radius: 15px;
   text-align: center;
 }
+
+/* .input-drag {
+  height: 150px;
+  border: 1px dashed #999;
+} */

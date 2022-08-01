@@ -14,6 +14,7 @@ $(document).ready(function () {
             $(".draggable").draggable();
 
             addImage();
+            dragImage();
         });
     });
 
@@ -30,11 +31,61 @@ $(document).ready(function () {
                 console.log(imagePreviewUrlElem);
             }, false);
         })
-    }
+    };
+
+    function dragImage() {
+        var inputDragElem = document.querySelectorAll('.input-drag');
+        var note = document.querySelectorAll('.note');
+        var imagePreviewUrlElem = document.querySelectorAll('.image-preview');
+
+        var handleDrop = function (event, index) {
+            alert("dragged handledrop")
+            var dataTransfer = event.dataTransfer;
+            var files = dataTransfer.files;
+
+            for (var i = 0; i < files.length; i++) {
+                var file = files[i];
+                var reader = new FileReader();
+
+                reader.readAsDataURL(file); // Determines this.result content
+                reader.addEventListener('loadend', function (event, file) {
+                    imagePreviewUrlElem[index].src = this.result;
+                });
+            }
+        }
+
+        note.forEach(function (element, i) {
+            element.addEventListener('dragover', function (event) {
+                preventDefault(event);
+            }, false);
+        });
+
+        note.forEach(function (element, i) {
+            element.addEventListener('dragenter', function (event) {
+                preventDefault(event);
+            }, false);
+        })
+
+        note.forEach(function (element, i) {
+            element.addEventListener('drop', function (event) {
+
+                preventDefault(event);
+                handleDrop(event, i);
+            }, false);
+        })
+    };
+
+
 
     addImage();
+    dragImage();
 
 });
+
+
+
+
+
 
 
 
