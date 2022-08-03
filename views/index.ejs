@@ -92,12 +92,14 @@
 
         get(firebaseRef).then((snapshot) => {
             snapshot.forEach((child) => {
-                let sticky = $(`<div class='note draggable' ><div class='text'><div class='avatar-upload'><input id='input-url'class='input-url' type='text'placeholder='Enter an image URL and press enter!' /><div class='avatar-edit'><label for='imageUpload'></label></div><div class='avatar-preview'><img id='image-preview' class='image-preview'src=${child.val().image} /></div></div><textarea class='cnt' placeholder='Enter text here...'>${child.val().note}</textarea></div>
-            <button class="btn btn-success save-note">Save</button></div>`);
+                let sticky = $(`<div class='note draggable' id=${child.val().noteId} style='top:${child.val().top}px;left:${child.val().left}px;' ><div class='text'><div class='avatar-upload'><input id='input-url'class='input-url' type='text'placeholder='Enter an image URL and press enter!' /><div class='avatar-edit'><label for='imageUpload'></label></div><div class='avatar-preview'><img id='image-preview' class='image-preview'src=${child.val().image} /></div></div><textarea class='cnt' placeholder='Enter text here...'>${child.val().note}</textarea></div>
+            <button class="btn btn-success update-note">Save</button></div>`);
                 $("#board").append(sticky);
                 $(".draggable").draggable();
                 window.addImage();
                 window.dragImage();
+                updateNotes();
+                $(`#${child.val().noteId}`).offset({ top: child.val().top, left: child.val().left })
             });
         }).catch((error) => {
             console.error(error);
@@ -108,9 +110,8 @@
                 $(this).on('click', function () {
                     let image = $(this).parent().find('img').attr('src');
                     let note = $(this).parent().find('textarea').val();
-                    let position = $(this).parent().position();
                     let id = $(this).parent().attr('id');
-                    // alert(position.left + " " + position.top);
+                    let position = $(`#${id}`).position();
 
                     set(ref(db, "notes/" + id), {
                         noteId: id,
@@ -128,7 +129,32 @@
                 })
             });
         }
-        saveNotes();
+
+        function updateNotes() {
+            $(".update-note").each(function (index) {
+                $(this).on('click', function () {
+                    let image = $(this).parent().find('img').attr('src');
+                    let note = $(this).parent().find('textarea').val();
+                    let id = $(this).parent().attr('id');
+                    let position = $(`#${id}`).position();
+
+
+                    update(ref(db, "notes/" + id), {
+                        note: note,
+                        image: image,
+                        left: position.left,
+                        top: position.top
+                    })
+                        .then(() => {
+                            console.log(id);
+                        })
+                        .catch((error) => {
+                            alert("unsuccessful " + error)
+                        });
+                })
+            });
+        }
+
         window.saveNotes = saveNotes;
     </script>
     <script src="https://unpkg.com/uuid@latest/dist/umd/uuidv4.min.js"></script>
