@@ -1,24 +1,13 @@
+
 $(document).ready(function () {
-    console.log("ready!");
+
     var preventDefault = function (event) {
         event.preventDefault();
         event.stopPropagation();
         return false;
     }
 
-    $(function () {
-        $(".draggable").draggable();
-        $(".add-note").click(function () {
-            $sticky = $("<div id='board'><div class='note draggable'><div class='text'><div class='avatar-upload'><input id='input-url'class='input-url' type='text'placeholder='Enter an image URL and press enter!' /><div class='avatar-edit'><label for='imageUpload'></label></div><div class='avatar-preview'><img id='image-preview' class='image-preview'src='https://www.survivorsuk.org/wp-content/uploads/2017/01/no-image.jpg' /></div></div><textarea class='cnt' placeholder='Enter text here...'></textarea></div></div></div>");
-            $("#board").append($sticky);
-            $(".draggable").draggable();
-
-            addImage();
-            dragImage();
-        });
-    });
-
-    function addImage() {
+    const addImage = function () {
         var inputUrlElem = document.querySelectorAll('.input-url');
         // var inputDragElem = document.getElementById('input-drag');
         var imagePreviewUrlElem = document.querySelectorAll('.image-preview');
@@ -33,13 +22,12 @@ $(document).ready(function () {
         })
     };
 
-    function dragImage() {
+    const dragImage = function () {
         var inputDragElem = document.querySelectorAll('.input-drag');
         var note = document.querySelectorAll('.note');
         var imagePreviewUrlElem = document.querySelectorAll('.image-preview');
 
         var handleDrop = function (event, index) {
-            alert("dragged handledrop")
             var dataTransfer = event.dataTransfer;
             var files = dataTransfer.files;
 
@@ -75,10 +63,25 @@ $(document).ready(function () {
         })
     };
 
+    $(function () {
+        let id = uuidv4();
+        $(".draggable").draggable();
+        $(".add-note").click(function () {
+            $sticky = $(`<div class='note draggable' id=${id}><div class='text'><div class='avatar-upload'><input id='input-url'class='input-url' type='text'placeholder='Enter an image URL and press enter!' /><div class='avatar-edit'><label for='imageUpload'></label></div><div class='avatar-preview'><img id='image-preview' class='image-preview'src='/img/image-drop.jpeg' /></div></div><textarea class='cnt' placeholder='Enter text here...'></textarea></div>
+            <button class="btn btn-success save-note">Save</button></div>`);
+            $("#board").append($sticky);
+            $(".draggable").draggable();
 
+            addImage();
+            dragImage();
+            window.saveNotes();
+        });
+    });
 
     addImage();
     dragImage();
+    window.addImage = addImage;
+    window.dragImage = dragImage;
 
 });
 

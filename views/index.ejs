@@ -30,7 +30,7 @@
     </div>
 
     <div id="board">
-        <div class='note draggable'>
+        <!-- <div class='note draggable'>
             <div class='text'>
                 <div class="avatar-upload">
                     <input id="input-url" class="input-url" type="text" placeholder="Enter an image URL" />
@@ -38,15 +38,15 @@
                         <label for="imageUpload"></label>
                     </div>
                     <div class="avatar-preview">
-                        <img id="image-preview" class="image-preview"
-                            src="https://www.survivorsuk.org/wp-content/uploads/2017/01/no-image.jpg" />
+                        <img id="image-preview" class="image-preview" src="/img/image-drop.jpeg" />
                     </div>
                 </div>
                 <textarea class='cnt' placeholder='Enter text here...'></textarea>
             </div>
-        </div>
+            <button class="btn btn-success save-note">Save</button>
+        </div> -->
 
-        <div class='note draggable'>
+        <!-- <div class='note draggable'>
             <div class='text'>
                 <div class="avatar-upload">
                     <input id="input-url" class="input-url" type="text"
@@ -61,12 +61,77 @@
                 </div>
                 <textarea class='cnt' placeholder='Enter text here...'></textarea>
             </div>
-        </div>
+        </div> -->
     </div>
     </div>
     </div>
-    <!-- <a href="https://www.flaticon.com/free-icons/storyboard" title="storyboard icons">Storyboard icons created
-        by Eucalyp - Flaticon</a> -->
+    <script type="module">
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.9.1/firebase-app.js";
+        // TODO: Add SDKs for Firebase products that you want to use
+        // https://firebase.google.com/docs/web/setup#available-libraries
+
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyD4egPEUGErQE3R6tsYNI7TOa67nKb6-A8",
+            authDomain: "story-board-37d83.firebaseapp.com",
+            databaseURL: "https://story-board-37d83-default-rtdb.firebaseio.com",
+            projectId: "story-board-37d83",
+            storageBucket: "story-board-37d83.appspot.com",
+            messagingSenderId: "326044371137",
+            appId: "1:326044371137:web:00f610cc2aefebeb72ec40"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+
+        import { getDatabase, ref, set, get, child, update, remove } from "https://www.gstatic.com/firebasejs/9.9.1/firebase-database.js";
+
+        const db = getDatabase();
+        const firebaseRef = ref(db, "notes/");
+
+        get(firebaseRef).then((snapshot) => {
+            snapshot.forEach((child) => {
+                let sticky = $(`<div class='note draggable' ><div class='text'><div class='avatar-upload'><input id='input-url'class='input-url' type='text'placeholder='Enter an image URL and press enter!' /><div class='avatar-edit'><label for='imageUpload'></label></div><div class='avatar-preview'><img id='image-preview' class='image-preview'src=${child.val().image} /></div></div><textarea class='cnt' placeholder='Enter text here...'>${child.val().note}</textarea></div>
+            <button class="btn btn-success save-note">Save</button></div>`);
+                $("#board").append(sticky);
+                $(".draggable").draggable();
+                window.addImage();
+                window.dragImage();
+            });
+        }).catch((error) => {
+            console.error(error);
+        });
+
+        const saveNotes = function () {
+            $(".save-note").each(function (index) {
+                $(this).on('click', function () {
+                    let image = $(this).parent().find('img').attr('src');
+                    let note = $(this).parent().find('textarea').val();
+                    let position = $(this).parent().position();
+                    let id = $(this).parent().attr('id');
+                    // alert(position.left + " " + position.top);
+
+                    set(ref(db, "notes/" + id), {
+                        noteId: id,
+                        note: note,
+                        image: image,
+                        left: position.left,
+                        top: position.top
+                    })
+                        .then(() => {
+                            alert("data saved successfully")
+                        })
+                        .catch((error) => {
+                            alert("unsuccessful " + error)
+                        });
+                })
+            });
+        }
+        saveNotes();
+        window.saveNotes = saveNotes;
+    </script>
+    <script src="https://unpkg.com/uuid@latest/dist/umd/uuidv4.min.js"></script>
     <script src="/script.js"></script>
 </body>
 

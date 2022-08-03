@@ -194,7 +194,7 @@ textarea:focus {
   background-position: center;
 }
 
-#input-url {
+.input-url {
   margin-bottom: 5px;
   margin-top: 5px;
   border: 1px solid rgba(211, 211, 211, 0.8);
@@ -202,6 +202,10 @@ textarea:focus {
   width: 250px;
   border-radius: 15px;
   text-align: center;
+}
+
+.save-note {
+  float: right;
 }
 
 /* .input-drag {
