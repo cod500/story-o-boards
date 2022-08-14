@@ -92,13 +92,14 @@
 
         get(firebaseRef).then((snapshot) => {
             snapshot.forEach((child) => {
-                let sticky = $(`<div class='note draggable' id=${child.val().noteId} style='top:${child.val().top}px;left:${child.val().left}px;' ><div class='text'><div class='avatar-upload'><input id='input-url'class='input-url' type='text'placeholder='Enter an image URL and press enter!' /><div class='avatar-edit'><label for='imageUpload'></label></div><div class='avatar-preview'><img id='image-preview' class='image-preview'src=${child.val().image} /></div></div><textarea class='cnt' placeholder='Enter text here...'>${child.val().note}</textarea></div>
-            <button class="btn btn-success update-note">Save</button></div>`);
+                let sticky = $(`<div class='note draggable' id=${child.val().noteId} style='top:${child.val().top}px;left:${child.val().left}px;' ><div class='text'><div class='avatar-upload'><input id='input-url'class='input-url' type='text'placeholder='Enter an image URL and press enter!' /><div class='avatar-edit'><label for='imageUpload'></label></div><div class='avatar-preview'><img id='image-preview' class='image-preview'src=${child.val().image} /></div></div><textarea class='cnt' placeholder='Enter text here...'>${child.val().note}</textarea></div><button class="btn btn-danger delete-note reg">Delete</button>
+            <button class="btn btn-success update-note log">Save</button></div>`);
                 $("#board").append(sticky);
                 $(".draggable").draggable();
                 window.addImage();
                 window.dragImage();
                 updateNotes();
+                deleteNotes();
                 $(`#${child.val().noteId}`).offset({ top: child.val().top, left: child.val().left })
             });
         }).catch((error) => {
@@ -131,31 +132,53 @@
         }
 
         function updateNotes() {
-            $(".update-note").each(function (index) {
-                $(this).on('click', function () {
-                    let image = $(this).parent().find('img').attr('src');
-                    let note = $(this).parent().find('textarea').val();
-                    let id = $(this).parent().attr('id');
-                    let position = $(`#${id}`).position();
+            $(".update-note").on('click', function (event) {
+                event.stopPropagation();
+                event.stopImmediatePropagation();
+                let image = $(this).parent().find('img').attr('src');
+                let note = $(this).parent().find('textarea').val();
+                let id = $(this).parent().attr('id');
+                let position = $(`#${id}`).position();
+                alert(position.left)
 
 
-                    update(ref(db, "notes/" + id), {
-                        note: note,
-                        image: image,
-                        left: position.left,
-                        top: position.top
-                    })
-                        .then(() => {
-                            console.log(id);
-                        })
-                        .catch((error) => {
-                            alert("unsuccessful " + error)
-                        });
+                update(ref(db, "notes/" + id), {
+                    note: note,
+                    image: image,
+                    left: position.left,
+                    top: position.top
                 })
-            });
+                    .then(() => {
+                        console.log(id);
+                    })
+                    .catch((error) => {
+                        alert("unsuccessful " + error)
+                    });
+            })
+        }
+
+        function deleteNotes() {
+            $(".delete-note").on('click', function (event) {
+                event.stopPropagation();
+                event.stopImmediatePropagation();
+                let id = $(this).parent().attr('id');
+
+                remove(ref(db, "notes/" + id), {
+                })
+                    .then(() => {
+                        $(`#${id}`).css('visibility', 'hidden');
+                    })
+                    .catch((error) => {
+                        alert("unsuccessful " + error)
+                    });
+
+
+            })
+
         }
 
         window.saveNotes = saveNotes;
+        window.deleteNotes = deleteNotes;
     </script>
     <script src="https://unpkg.com/uuid@latest/dist/umd/uuidv4.min.js"></script>
     <script src="/script.js"></script>
