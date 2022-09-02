@@ -64,10 +64,9 @@ $(document).ready(function () {
     };
 
     $(function () {
-        let id = uuidv4();
         $(".draggable").draggable();
         $(".add-note").click(function () {
-            $sticky = $(`<div class='note draggable' id=${id}><div class='text'><div class='avatar-upload'><input id='input-url'class='input-url' type='text'placeholder='Enter an image URL and press enter!' /><div class='avatar-edit'><label for='imageUpload'></label></div><div class='avatar-preview'><img id='image-preview' class='image-preview'src='/img/image-drop.jpeg' /></div></div><textarea class='cnt' placeholder='Enter text here...'></textarea></div><button class="btn btn-danger delete-note reg">Delete</button>
+            $sticky = $(`<div class='note draggable' id=${uuidv4()}><div class='text'><div class='avatar-upload'><input id='input-url'class='input-url' type='text'placeholder='Enter an image URL and press enter!' /><div class='avatar-edit'><label for='imageUpload'></label></div><div class='avatar-preview'><img id='image-preview' class='image-preview'src='/img/image-drop.jpeg' /></div></div><textarea class='cnt' placeholder='Enter text here...'></textarea></div><button class="btn btn-danger delete-note reg">Delete</button>
             <button class="btn btn-success save-note log">Save</button></div>`);
             $("#board").append($sticky);
             $(".draggable").draggable();
@@ -76,6 +75,7 @@ $(document).ready(function () {
             dragImage();
             window.saveNotes();
             window.deleteNotes();
+            alert(uuidv4());
         });
     });
 
