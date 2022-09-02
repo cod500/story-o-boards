@@ -35,7 +35,7 @@ a.button {
 .note {
   float: left;
   display: block;
-  position: relative;
+  position: absolute;
   padding: 1em;
   width: 300px;
   min-height: 300px;
@@ -261,7 +261,6 @@ button {
   border: none;
   border-radius: 45px;
   box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
-  transition: all 0.3s ease 0s;
   cursor: pointer;
   outline: none;
 }
@@ -270,12 +269,10 @@ button {
   background-color: #2ee59d;
 
   color: #fff;
-  transform: translateY(-7px);
 }
 
 .reg:hover {
   background-color: rgb(236, 87, 87);
 
   color: #fff;
-  transform: translateY(-7px);
 }

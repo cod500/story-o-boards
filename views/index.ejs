@@ -109,6 +109,8 @@
         const saveNotes = function () {
             $(".save-note").each(function (index) {
                 $(this).on('click', function () {
+                    $(this).addClass('update-note');
+                    $(this).removeClass('save-note');
                     let image = $(this).parent().find('img').attr('src');
                     let note = $(this).parent().find('textarea').val();
                     let id = $(this).parent().attr('id');
@@ -122,10 +124,12 @@
                         top: position.top
                     })
                         .then(() => {
-                            alert("data saved successfully")
+                            alert("note saved successfully");
+
                         })
                         .catch((error) => {
-                            alert("unsuccessful " + error)
+                            alert("unsuccessful " + error);
+
                         });
                 })
             });
@@ -149,7 +153,7 @@
                     top: position.top
                 })
                     .then(() => {
-                        console.log(id);
+                        alert("note updated sccessfully");
                     })
                     .catch((error) => {
                         alert("unsuccessful " + error)
