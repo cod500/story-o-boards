@@ -75,7 +75,6 @@ $(document).ready(function () {
             dragImage();
             window.saveNotes();
             window.deleteNotes();
-            alert(uuidv4());
         });
     });
 
