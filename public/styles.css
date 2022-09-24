@@ -4,6 +4,23 @@ body {
   font-family: "Englebert", sans-serif;
 }
 
+#navbar {
+  background-color: transparent;
+  color: #000;
+  padding: 10px;
+  /* Without the four declarations below (position, width, box-sizing, top), then hero area and navbar are at the top.  With them, there is a white bar on CodePen. On my site that top white bar is not there. */
+  position: fixed;
+  width: 100%;
+  box-sizing: border-box;
+  top: 0;
+}
+
+#navbar-flexbox {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+}
+
 .button {
   float: right;
   margin: 0px 50px 0 0;

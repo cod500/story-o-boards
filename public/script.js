@@ -63,10 +63,18 @@ $(document).ready(function () {
         })
     };
 
+    function uuid4() {
+        return ([1e7] + -1e3 + -4e3 + -8e3 + -1e11).replace(/[018]/g, c =>
+            (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
+        );
+    }
+
+    // console.log(uuidv4());
+
     $(function () {
         $(".draggable").draggable();
         $(".add-note").click(function () {
-            $sticky = $(`<div class='note draggable' id=${uuidv4()}><div class='text'><div class='avatar-upload'><input id='input-url'class='input-url' type='text'placeholder='Enter an image URL and press enter!' /><div class='avatar-edit'><label for='imageUpload'></label></div><div class='avatar-preview'><img id='image-preview' class='image-preview'src='/img/image-drop.jpeg' /></div></div><textarea class='cnt' placeholder='Enter text here...'></textarea></div><button class="btn btn-danger delete-note reg">Delete</button>
+            $sticky = $(`<div class='note draggable' id=${uuid4()}><div class='text'><div class='avatar-upload'><input id='input-url'class='input-url' type='text'placeholder='Enter an image URL and press enter!' /><div class='avatar-edit'><label for='imageUpload'></label></div><div class='avatar-preview'><img id='image-preview' class='image-preview'src='/img/image-drop.jpeg' /></div></div><textarea class='cnt' placeholder='Enter text here...'></textarea></div><button class="btn btn-danger delete-note reg">Delete</button>
             <button class="btn btn-success save-note log">Save</button></div>`);
             $("#board").append($sticky);
             $(".draggable").draggable();
