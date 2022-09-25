@@ -21,7 +21,11 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
 
 import router from './routes/index.js';
+import loginRouter from './routes/login.js';
+import signupRouter from './routes/signup.js';
 app.use('/', router);
+app.use('/', loginRouter);
+app.use('/', signupRouter)
 
 const port = 8080;
 app.listen(process.env.PORT || port, () => {
